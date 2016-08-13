@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-
+    <link href='canvasPlay.css' rel='stylesheet' type='text/css'>
   </head>
   <body bgcolor=black>
-    <canvas id="canvas" width="1000" height="800" style="border:1px solid #b8272b;">
-
-    </canvas>
-
-    <script src="test_pen.js"></script>
-
+    <button type='button' onclick=pauseIt()>Pause</button>
+    <button type='button' onclick=unPause()>Un-Pause</button>
+    <button type='button' onclick=reset()>Reset</button>
+    <label id='lblCounter' style='color:white;'>0</label>
+    <label id='lblDraws' style='color:white;'>0</label>
+    <canvas id='canvas' width='1000' height='800' style='border:1px solid #b8272b;'></canvas>
+    <script src='test_pen.js'></script>
   </body>
 
 </html>

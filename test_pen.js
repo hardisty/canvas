@@ -8,6 +8,9 @@ var clickLocations = [];
 var boxSize = 20;
 var n = 0;
 var draws = 0;
+var pause = false;
+var bump = 200;
+var bumpBase = 200;
 document.getElementById('canvas').onclick = function(e) {
     clickLocations.push({x:e.clientX, y:e.clientY});
     clearCanvas();
@@ -15,20 +18,51 @@ document.getElementById('canvas').onclick = function(e) {
     n = 0;
     draws = 0;
 }
+function updateCounter() {
+    document.getElementById('lblCounter').innerHTML = n.toString();
+}
+function updateNumDraws() {
+    document.getElementById('lblDraws').innerHTML = draws.toString();
+}
+function pauseIt(){
+    console.log('pause');
+    pause = true;
+}
+function unPause(){
+    console.log('unpause');
+    pause = false;
+    redrawRandom();
+}
+function reset(){
+    console.log('reset');
+    pause = false;
+    n = 0;
+    draws = 1;
 
+    clearCanvas();
+    redrawRandom();
+}
 function redrawRandom() {
-    console.log(n++);
-    console.log(draws);
+    console.log('n = ' + n++);
+    console.log('nDraws = ' + draws);
+    updateCounter();
+    updateNumDraws();
     redrawCanvas();
-    if (draws > 10000){
-        clearCanvas();
-        n = 0;
-        draws = 0;
+    if (pause) {
+        return;
     }
+
     setTimeout(function() {
-        if ((n % 50) == 0){
+        if ((n % bump) == 0){
+            bump = Math.floor(Math.random() * bumpBase) + 100;
             draws++;
-            draws = draws + Math.random() * draws;
+            draws += Math.floor(draws * (draws * Math.random()));
+        }
+        if (draws > 8000){
+            clearCanvas();
+            n = 0;
+            draws = 0;
+            reset();
         }
         randomCanvas(draws);
         redrawRandom();
