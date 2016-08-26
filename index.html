@@ -1,19 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <link href='canvasPlay.css' rel='stylesheet' type='text/css'>
-  </head>
-  <body bgcolor=black>
+    <style>
+        div.container {
+            width: 100%;
+            border: 1px solid gray;
+        }
+
+        nav {
+            float: left;
+            max-width: 160px;
+            margin: 0;
+            padding: 1em;
+        }
+
+        canvas {
+            margin-left: 170px;
+            border-left: 1px solid gray;
+            padding: 1em;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body bgcolor=black>
+<nav>
     <button type='button' onclick=pauseIt()>Pause</button>
     <button type='button' onclick=unPause()>Un-Pause</button>
     <button type='button' onclick=reset()>Reset</button>
     <label id='lblCounter' style='color:white;'>0</label>
     <label id='lblDraws' style='color:white;'>0</label>
-    <canvas id='canvas'
+    <input id='hue' type='range' min='100' max='500' step='10' />
+</nav>
+<canvas id='canvas'
         width='1000'
         height='800'>
-    </canvas>
-    <script src='test_pen.js'></script>
-  </body>
+</canvas>
+<script src='test_pen.js'></script>
+</body>
 
 </html>
