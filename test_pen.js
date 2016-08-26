@@ -7,22 +7,40 @@ var ctx = c.getContext("2d");
 var clickLocations = [];
 var boxSize = 20;
 var n = 0;
-var draws = 0;
+var items = 0;
+var maxItems = 2000;
 var pause = false;
-var bump = 200;
+var bump = 100;
 var bumpBase = 200;
+
+var minHue = 1;
+var maxHue = 360;
+var minSaturation = 0;
+var maxSaturation = 100;
+var minLightness = 0;
+var maxLightness = 100;
+var currMinHue = 1;
+var currMaxHue = 360;
+var currMinSaturation = 0;
+var currMaxSaturation = 100;
+var currMinLightness = 0;
+var currMaxLightness = 100;
+
+
+
+
 document.getElementById('canvas').onclick = function(e) {
     clickLocations.push({x:e.clientX, y:e.clientY});
     clearCanvas();
     redrawRandom();
     n = 0;
-    draws = 0;
+    items = 0;
 }
 function updateCounter() {
     document.getElementById('lblCounter').innerHTML = n.toString();
 }
-function updateNumDraws() {
-    document.getElementById('lblDraws').innerHTML = draws.toString();
+function updateNumItems() {
+    document.getElementById('lblItems').innerHTML = items.toString();
 }
 function pauseIt(){
     console.log('pause');
@@ -37,46 +55,67 @@ function reset(){
     console.log('reset');
     pause = false;
     n = 0;
-    draws = 1;
+    items = 1;
 
     clearCanvas();
     redrawRandom();
 }
 function redrawRandom() {
-    console.log('n = ' + n++);
-    console.log('nDraws = ' + draws);
+    n++;
     updateCounter();
-    updateNumDraws();
+    updateNumItems();
     redrawCanvas();
     if (pause) {
         return;
     }
 
     setTimeout(function() {
+        function adjustColorRanges() {
+            var which = randInt(0, 3);
+            if (which == 0) {
+                console.log('hue');
+                currMinHue = rand(minHue, currMaxHue);
+                currMaxHue = rand(currMinHue, maxHue);
+            } else if (which == 1) {
+                console.log('saturation');
+                currMinSaturation = rand(minSaturation, currMaxSaturation);
+                currMaxSaturation = rand(currMinSaturation, maxSaturation);
+            } else if (which == 2) {
+                console.log('brightness');
+                currMinLightness = rand(minLightness, currMaxLightness);
+                currMaxLightness = rand(currMinLightness, maxLightness);
+            } else if (which == 3) {
+                console.log('alpha not implemented');
+            }
+        }
+
         if ((n % bump) == 0){
             bump = Math.floor(Math.random() * bumpBase) + 100;
-            draws++;
-            draws += Math.floor(draws * (draws * Math.random()));
+            items++;
+            items += Math.floor((items * Math.random()));
+            adjustColorRanges();
         }
-        if (draws > 8000){
+        if (items > maxItems){
             clearCanvas();
             n = 0;
-            draws = 0;
+            items = 0;
             reset();
         }
-        randomCanvas(draws);
+        randomCanvas(items);
         redrawRandom();
     }, (30));
 }
-
-function randomColor(brightness){
-  function randomChannel(brightness){
-    var r = 255-brightness;
-    var n = 0|((Math.random() * r) + brightness);
-    var s = n.toString(16);
-    return (s.length==1) ? '0'+s : s;
-  }
-  return '#' + randomChannel(brightness) + randomChannel(brightness) + randomChannel(brightness);
+function rand(min, max) {
+    return min + Math.random() * (max - min);
+}
+function randInt(min, max) {
+    return min + Math.floor(Math.random() * (max - min));
+}
+function randomColor() {
+    var h = rand(currMinHue, currMaxHue);
+    var s = rand(currMinSaturation, currMaxSaturation);
+    var l = rand(currMinLightness, currMaxLightness);
+    return 'hsl(' + h + ',' + s + '%,' + l + '%)';
 }
 
 function clearCanvas(){
@@ -91,7 +130,7 @@ function redrawCanvas() {
     //ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     clickLocations.forEach(function(point){
-        ctx.fillStyle = randomColor(0);
+        ctx.fillStyle = randomColor();
         //ctx.fillRect(point.x-(boxSize/2), point.y-(boxSize/2), boxSize, boxSize);
     });
 
