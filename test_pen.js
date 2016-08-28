@@ -19,12 +19,18 @@ var minSaturation = 0;
 var maxSaturation = 100;
 var minLightness = 0;
 var maxLightness = 100;
+//unlike the others, alpha is floating point
+var minAlpha = 0;
+var maxAlpha = 1;
+
 var currMinHue = 1;
 var currMaxHue = 360;
 var currMinSaturation = 0;
 var currMaxSaturation = 100;
 var currMinLightness = 0;
 var currMaxLightness = 100;
+var currMinAlpha = 0;
+var currMaxAlpha = 1;
 
 
 
@@ -71,7 +77,7 @@ function redrawRandom() {
 
     setTimeout(function() {
         function adjustColorRanges() {
-            var which = randInt(0, 3);
+            var which = randInt(0, 4);
             if (which == 0) {
                 console.log('hue');
                 currMinHue = rand(minHue, currMaxHue);
@@ -85,7 +91,8 @@ function redrawRandom() {
                 currMinLightness = rand(minLightness, currMaxLightness);
                 currMaxLightness = rand(currMinLightness, maxLightness);
             } else if (which == 3) {
-                console.log('alpha not implemented');
+                currMinAlpha = rand(minAlpha, currMaxAlpha);
+                currMaxAlpha = rand(currMinAlpha, maxAlpha);
             }
         }
 
@@ -115,6 +122,7 @@ function randomColor() {
     var h = rand(currMinHue, currMaxHue);
     var s = rand(currMinSaturation, currMaxSaturation);
     var l = rand(currMinLightness, currMaxLightness);
+    var a = rand(currMinAlpha, currMaxAlpha);
     return 'hsl(' + h + ',' + s + '%,' + l + '%)';
 }
 
