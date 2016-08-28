@@ -11,7 +11,7 @@ var items = 0;
 var maxItems = 2000;
 var pause = false;
 var bump = 100;
-var bumpBase = 200;
+var bumpBase = 20;
 
 var minHue = 1;
 var maxHue = 360;
