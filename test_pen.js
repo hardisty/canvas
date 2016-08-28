@@ -91,6 +91,7 @@ function redrawRandom() {
                 currMinLightness = rand(minLightness, currMaxLightness);
                 currMaxLightness = rand(currMinLightness, maxLightness);
             } else if (which == 3) {
+                console.log('alpha');
                 currMinAlpha = rand(minAlpha, currMaxAlpha);
                 currMaxAlpha = rand(currMinAlpha, maxAlpha);
             }
@@ -123,7 +124,7 @@ function randomColor() {
     var s = rand(currMinSaturation, currMaxSaturation);
     var l = rand(currMinLightness, currMaxLightness);
     var a = rand(currMinAlpha, currMaxAlpha);
-    return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+    return 'hsla(' + h + ',' + s + '%,' + l + '%,' +  a + ')';
 }
 
 function clearCanvas(){
