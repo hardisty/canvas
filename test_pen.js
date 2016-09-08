@@ -43,10 +43,10 @@ document.getElementById('canvas').onclick = function(e) {
     items = 0;
 }
 function updateCounter() {
-    document.getElementById('lblCounter').innerHTML = n.toString();
+    document.getElementById('lblCounter').innerHTML = " counter: " + n.toString();
 }
 function updateNumItems() {
-    document.getElementById('lblItems').innerHTML = "n items: " + items.toString();
+    document.getElementById('lblItems').innerHTML = "  n items: " + items.toString();
 }
 function pauseIt(){
     console.log('pause');
