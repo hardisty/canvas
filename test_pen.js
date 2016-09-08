@@ -46,7 +46,7 @@ function updateCounter() {
     document.getElementById('lblCounter').innerHTML = " counter: " + n.toString();
 }
 function updateNumItems() {
-    document.getElementById('lblItems').innerHTML = "  n items: " + items.toString();
+    document.getElementById('lblItems').innerHTML = "  n items painting: " + items.toString();
 }
 function pauseIt(){
     console.log('pause');
