@@ -98,7 +98,11 @@ function redrawRandom() {
         }
 
         if ((n % bump) == 0){
+            bump = document.getElementById('bump').value;
+            console.log(bump);
             bump = Math.floor(Math.random() * bumpBase) + 100;
+            console.log(bump);
+            console.log('**');
             items++;
             items += Math.floor((items * Math.random()));
             adjustColorRanges();
